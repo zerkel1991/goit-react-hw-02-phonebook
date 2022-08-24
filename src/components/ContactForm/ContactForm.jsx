@@ -1,6 +1,6 @@
 import React from "react";
 import { Component } from "react";
-import style from './Form.module.css'
+import style from './contactForm.module.css'
 import PropTypes from 'prop-types';
 
 class ContactForm extends Component {
@@ -66,7 +66,6 @@ reset(){
     }
 
     ContactForm.propTypes = {
-      contacts: PropTypes.array.isRequired,
       onSubmit: PropTypes.func.isRequired,
     };
 

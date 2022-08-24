@@ -37,19 +37,18 @@ class App extends Component {
   onChangeFilter = (e) =>{
   const {name,value} = e.currentTarget
   this.setState({[name] :value})
-  this.filterContacts(value)
 }
 
-  filterContacts = (name) =>{
-    this.setState(({contacts})=>{
-    const   newContacts = contacts.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
+getFilteredContacts = () =>{
+  const {filter,contacts} = this.state;
+  const normalizedFilter = filter.toLowerCase();
 
-    return {
-      contacts : newContacts
-    }
-
-    })
+  return contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter));
 }
+
+
+
 deleteContact = (id)=>{
   this.setState(({contacts})=>{
     const newContactList = contacts.filter(item => item.id !==id)
@@ -63,7 +62,8 @@ deleteContact = (id)=>{
   render() {
 
     const {addContact,onChangeFilter,deleteContact} = this;
-    const {contacts,filter} = this.state;
+    const {filter} = this.state;
+    const filteredContacts = this.getFilteredContacts()
     return (
       <div>
       <h1>Phonebook</h1>
@@ -78,7 +78,7 @@ deleteContact = (id)=>{
       value = {filter}
       onChangeFilter = {onChangeFilter}
   />
-      <ContactList items = {contacts} deleteContact ={deleteContact}/>
+      <ContactList items = {filteredContacts} deleteContact ={deleteContact}/>
     </div>
       )
   }
